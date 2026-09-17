@@ -1,0 +1,182 @@
+@page "/dashboard"
+@inject ITaskService Tasks
+@inject AuthState Auth
+@inject NavigationManager Nav
+
+<PageTitle>Dashboard - Whisker List</PageTitle>
+
+@if (!Auth.IsLoggedIn)
+{
+    <p>Redirecting to login...</p>
+}
+else
+{
+    <div class="dashboard-shell">
+        <aside class="dashboard-sidebar">
+            <div class="sidebar-logo">
+                <CatPeeking Size="small" />
+            </div>
+
+            <nav class="sidebar-nav">
+                <button class="sidebar-link @(_tab == Tab.Today ? "active" : "")" @onclick='() => _tab = Tab.Today'>Today</button>
+                <button class="sidebar-link @(_tab == Tab.Write ? "active" : "")" @onclick='() => _tab = Tab.Write'>Write Task</button>
+                <button class="sidebar-link @(_tab == Tab.Calendar ? "active" : "")" @onclick='() => _tab = Tab.Calendar'>Calendar</button>
+                <button class="sidebar-link @(_tab == Tab.Profile ? "active" : "")" @onclick='() => _tab = Tab.Profile'>Profile</button>
+            </nav>
+
+            <button class="sidebar-logout" @onclick="LogOut">Logout</button>
+        </aside>
+
+        <main class="dashboard-content">
+            @switch (_tab)
+            {
+                case Tab.Today:
+                    <h1 class="dashboard-welcome">Welcome</h1>
+                    <h2 class="dashboard-section-title">Tasks Today</h2>
+
+                    @if (_loading)
+                    {
+                        <p><em>Loading tasks...</em></p>
+                    }
+                    else if (_tasks.Count == 0)
+                    {
+                        <p class="empty-state">Nothing here yet - head to "Write Task" to add one.</p>
+                    }
+                    else
+                    {
+                        <table class="task-table">
+                            <thead>
+                                <tr>
+                                    <th>Task Name</th>
+                                    <th>Due Date</th>
+                                    <th>Status</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var task in _tasks)
+                                {
+                                    <tr class="@(task.IsDone ? "done" : "")">
+                                        <td>
+                                            <label class="task-check">
+                                                <input type="checkbox" checked="@task.IsDone" @onchange="() => ToggleDone(task.Id)" />
+                                                <span>@task.Title</span>
+                                            </label>
+                                        </td>
+                                        <td>@(task.DueDate?.ToString("MM/dd/yyyy") ?? "-")</td>
+                                        <td>@(task.IsDone ? "Done" : "Pending")</td>
+                                        <td><button class="task-delete" title="Delete task" @onclick="() => DeleteTask(task.Id)">✕</button></td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    }
+                    break;
+
+                case Tab.Write:
+                    <h1 class="dashboard-welcome">Write Task</h1>
+                    <EditForm Model="_newTask" OnValidSubmit="AddTask" class="write-task-form">
+                        <DataAnnotationsValidator />
+                        <label>Task name</label>
+                        <InputText @bind-Value="_newTask.Title" placeholder="What needs doing?" class="whisker-input" />
+                        <ValidationMessage For="() => _newTask.Title" />
+
+                        <label>Due date</label>
+                        <InputDate @bind-Value="_newTask.DueDate" class="whisker-input" />
+
+                        <button type="submit" class="whisker-button">Add task</button>
+                    </EditForm>
+                    break;
+
+                case Tab.Calendar:
+                    <h1 class="dashboard-welcome">Calendar</h1>
+                    @if (_tasks.Any(t => t.DueDate is not null))
+                    {
+                        <ul class="calendar-list">
+                            @foreach (var task in _tasks.Where(t => t.DueDate is not null).OrderBy(t => t.DueDate))
+                            {
+                                <li><strong>@task.DueDate!.Value.ToString("MMM d")</strong> - @task.Title</li>
+                            }
+                        </ul>
+                    }
+                    else
+                    {
+                        <p class="empty-state">No dated tasks yet.</p>
+                    }
+                    break;
+
+                case Tab.Profile:
+                    <h1 class="dashboard-welcome">Profile</h1>
+                    <p>Logged in as <strong>@Auth.CurrentUser</strong></p>
+                    <p>@_tasks.Count(t => !t.IsDone) task(s) still pending.</p>
+                    break;
+            }
+        </main>
+    </div>
+}
+
+@code {
+    private enum Tab { Today, Write, Calendar, Profile }
+
+    private Tab _tab = Tab.Today;
+    private List<TaskItem> _tasks = new();
+    private bool _loading = true;
+    private NewTaskModel _newTask = new();
+
+    protected override async Task OnInitializedAsync()
+    {
+        if (!Auth.IsLoggedIn)
+        {
+            Nav.NavigateTo("/login");
+            return;
+        }
+
+        await LoadTasks();
+    }
+
+    private async Task LoadTasks()
+    {
+        _loading = true;
+        _tasks = await Tasks.GetTasksAsync();
+        _loading = false;
+    }
+
+    private async Task AddTask()
+    {
+        if (string.IsNullOrWhiteSpace(_newTask.Title))
+        {
+            return;
+        }
+
+        await Tasks.AddTaskAsync(_newTask.Title.Trim(), TaskPriority.Medium, _newTask.DueDate, notes: null);
+        _newTask = new NewTaskModel();
+        _tab = Tab.Today;
+        await LoadTasks();
+    }
+
+    private async Task ToggleDone(int id)
+    {
+        await Tasks.ToggleDoneAsync(id);
+        await LoadTasks();
+    }
+
+    private async Task DeleteTask(int id)
+    {
+        await Tasks.DeleteTaskAsync(id);
+        await LoadTasks();
+    }
+
+    private void LogOut()
+    {
+        Auth.LogOut();
+        Nav.NavigateTo("/login");
+    }
+
+    private class NewTaskModel
+    {
+        [System.ComponentModel.DataAnnotations.Required(ErrorMessage = "Give the task a title.")]
+        public string? Title { get; set; }
+
+        public DateTime? DueDate { get; set; }
+    }
+}

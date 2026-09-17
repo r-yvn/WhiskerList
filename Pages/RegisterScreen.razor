@@ -1,0 +1,70 @@
+@page "/register"
+@inject NavigationManager Nav
+@inject AuthState Auth
+
+<PageTitle>Register - Whisker List</PageTitle>
+
+<div class="whisker-screen login-screen">
+    <CatPeeking Size="small" />
+
+    <SpiralNotepad CssClass="login-notepad">
+        <h1 class="form-title">
+            <PawIcon CssClass="paw-icon" />
+            REGISTER
+            <PawIcon CssClass="paw-icon" />
+        </h1>
+
+        <EditForm Model="_model" OnValidSubmit="HandleRegister" class="whisker-form">
+            <DataAnnotationsValidator />
+
+            <InputText @bind-Value="_model.Username" placeholder="Username" class="whisker-input" />
+            <InputText @bind-Value="_model.Password" type="password" placeholder="Password" class="whisker-input" />
+            <InputText @bind-Value="_model.ConfirmPassword" type="password" placeholder="Confirm password" class="whisker-input" />
+
+            @if (!string.IsNullOrEmpty(_error))
+            {
+                <p class="form-error">@_error</p>
+            }
+
+            <button type="submit" class="whisker-button">Register</button>
+        </EditForm>
+
+        <p class="form-footer">Already have an account? <a href="login">Login</a></p>
+    </SpiralNotepad>
+</div>
+
+@code {
+    private readonly RegisterModel _model = new();
+    private string? _error;
+
+    private void HandleRegister()
+    {
+        var name = _model.Username?.Trim();
+        if (string.IsNullOrWhiteSpace(name) || string.IsNullOrWhiteSpace(_model.Password))
+        {
+            _error = "Fill in a username and password.";
+            return;
+        }
+
+        if (_model.Password != _model.ConfirmPassword)
+        {
+            _error = "Passwords don't match.";
+            return;
+        }
+
+        // No real backend here - registering just starts a session,
+        // same as logging in.
+        _error = null;
+        Auth.LogIn(name);
+        Nav.NavigateTo("/dashboard");
+    }
+
+    private class RegisterModel
+    {
+        [System.ComponentModel.DataAnnotations.Required(ErrorMessage = "Please enter a username.")]
+        public string? Username { get; set; }
+
+        public string? Password { get; set; }
+        public string? ConfirmPassword { get; set; }
+    }
+}

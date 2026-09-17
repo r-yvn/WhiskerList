@@ -1,0 +1,53 @@
+@page "/"
+@inject NavigationManager Nav
+@implements IDisposable
+
+<PageTitle>Whisker List</PageTitle>
+
+<div class="whisker-screen splash-screen">
+    <div class="splash-stack">
+        <CatPeeking Size="large" />
+
+        <SpiralNotepad CssClass="splash-notepad">
+            <h1 class="brand-title">WHISKER</h1>
+            <p class="brand-script">List</p>
+
+            <ul class="splash-checklist">
+                <li>
+                    <span class="paw-check">
+                        <PawIcon />
+                    </span>
+                    <span class="checklist-line"></span>
+                </li>
+                <li>
+                    <span class="checkbox-square"></span>
+                    <a href="login" class="checklist-label">Login!</a>
+                </li>
+                <li>
+                    <span class="checkbox-square"></span>
+                    <a href="register" class="checklist-label">Register!</a>
+                </li>
+                <li>
+                    <span class="checkbox-square"></span>
+                    <span class="checklist-line"></span>
+                </li>
+            </ul>
+        </SpiralNotepad>
+    </div>
+</div>
+
+@code {
+    private System.Threading.Timer? _timer;
+
+    protected override void OnInitialized()
+    {
+        // Show the splash briefly, then move on to the login screen
+        // (tapping Login!/Register! above jumps there immediately).
+        _timer = new System.Threading.Timer(_ =>
+        {
+            InvokeAsync(() => Nav.NavigateTo("/login"));
+        }, null, TimeSpan.FromSeconds(2.2), Timeout.InfiniteTimeSpan);
+    }
+
+    public void Dispose() => _timer?.Dispose();
+}

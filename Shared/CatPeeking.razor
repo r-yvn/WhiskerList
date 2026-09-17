@@ -1,0 +1,39 @@
+@* The Whisker List cat mascot. "Large" is the big cat peeking over the
+   splash notepad; "Small" is the mini logo used on the login screen and
+   the dashboard sidebar. *@
+
+@if (Size == "small")
+{
+    <svg viewBox="0 0 120 70" class="cat-logo cat-logo-small" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <path d="M20 66 C20 30 34 6 60 6 C86 6 100 30 100 66 Z" class="cat-fill" />
+        <path d="M22 20 L6 -4 L38 12 Z" class="cat-fill" />
+        <path d="M98 20 L114 -4 L82 12 Z" class="cat-fill" />
+        <circle cx="46" cy="40" r="7" class="cat-eye-white" />
+        <circle cx="74" cy="40" r="7" class="cat-eye-white" />
+        <circle cx="47" cy="41" r="2.6" class="cat-eye-pupil" />
+        <circle cx="75" cy="41" r="2.6" class="cat-eye-pupil" />
+        <path d="M6 58 L46 55" class="cat-paw-line" />
+        <path d="M114 58 L74 55" class="cat-paw-line" />
+    </svg>
+}
+else
+{
+    <svg viewBox="0 0 300 210" class="cat-logo cat-logo-large" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <path d="M55 205 C48 95 75 15 150 15 C225 15 252 95 245 205 Z" class="cat-fill" />
+        <path d="M60 60 L15 -20 L118 42 Z" class="cat-fill" />
+        <path d="M240 60 L285 -20 L182 42 Z" class="cat-fill" />
+        <circle cx="150" cy="95" r="7" class="cat-forehead-gap" />
+        <circle cx="112" cy="122" r="26" class="cat-eye-white" />
+        <circle cx="188" cy="122" r="26" class="cat-eye-white" />
+        <circle cx="115" cy="126" r="9" class="cat-eye-pupil" />
+        <circle cx="191" cy="126" r="9" class="cat-eye-pupil" />
+        <ellipse cx="65" cy="190" rx="42" ry="15" class="cat-fill" />
+        <ellipse cx="235" cy="190" rx="42" ry="15" class="cat-fill" />
+        <ellipse cx="150" cy="198" rx="26" ry="18" class="cat-fill" />
+    </svg>
+}
+
+@code {
+    /// <summary>"large" (splash mascot) or "small" (login/sidebar logo).</summary>
+    [Parameter] public string Size { get; set; } = "large";
+}

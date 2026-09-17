@@ -1,0 +1,22 @@
+<div class="spiral-notepad-container @CssClass">
+    <!-- Wire Rings at Top -->
+    <div class="spiral-binding">
+        @for (int i = 0; i < 12; i++)
+        {
+            <div class="spiral-loop">
+                <span class="hole"></span>
+                <span class="wire"></span>
+            </div>
+        }
+    </div>
+
+    <!-- Notepad Ruled Body -->
+    <div class="notepad-paper">
+        @ChildContent
+    </div>
+</div>
+
+@code {
+    [Parameter] public RenderFragment? ChildContent { get; set; }
+    [Parameter] public string? CssClass { get; set; }
+}

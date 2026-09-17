@@ -1,0 +1,60 @@
+@page "/login"
+@inject NavigationManager Nav
+@inject AuthState Auth
+
+<PageTitle>Log in - Whisker List</PageTitle>
+
+<div class="whisker-screen login-screen">
+    <CatPeeking Size="small" />
+
+    <SpiralNotepad CssClass="login-notepad">
+        <h1 class="form-title">
+            <PawIcon CssClass="paw-icon" />
+            LOGIN
+            <PawIcon CssClass="paw-icon" />
+        </h1>
+
+        <EditForm Model="_model" OnValidSubmit="HandleLogin" class="whisker-form">
+            <DataAnnotationsValidator />
+
+            <InputText @bind-Value="_model.Username" placeholder="Username" class="whisker-input" />
+            <InputText @bind-Value="_model.Password" type="password" placeholder="Password" class="whisker-input" />
+
+            @if (!string.IsNullOrEmpty(_error))
+            {
+                <p class="form-error">@_error</p>
+            }
+
+            <button type="submit" class="whisker-button">Login</button>
+        </EditForm>
+
+        <p class="form-footer">No account yet? <a href="register">Register</a></p>
+    </SpiralNotepad>
+</div>
+
+@code {
+    private readonly LoginModel _model = new();
+    private string? _error;
+
+    private void HandleLogin()
+    {
+        var name = _model.Username?.Trim();
+        if (string.IsNullOrWhiteSpace(name) || string.IsNullOrWhiteSpace(_model.Password))
+        {
+            _error = "Enter a username and password.";
+            return;
+        }
+
+        _error = null;
+        Auth.LogIn(name);
+        Nav.NavigateTo("/dashboard");
+    }
+
+    private class LoginModel
+    {
+        [System.ComponentModel.DataAnnotations.Required(ErrorMessage = "Please enter a username.")]
+        public string? Username { get; set; }
+
+        public string? Password { get; set; }
+    }
+}
