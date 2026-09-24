@@ -7,65 +7,72 @@
 
 @if (!Auth.IsLoggedIn)
 {
-    <p>Redirecting to login...</p>
+    <p class="p-6 text-gray-500">Redirecting to login...</p>
 }
 else
 {
-    <div class="dashboard-shell">
-        <aside class="dashboard-sidebar">
-            <div class="sidebar-logo">
-                <CatPeeking Size="small" />
-            </div>
-
-            <nav class="sidebar-nav">
-                <button class="sidebar-link @(_tab == Tab.Today ? "active" : "")" @onclick='() => _tab = Tab.Today'>Today</button>
-                <button class="sidebar-link @(_tab == Tab.Write ? "active" : "")" @onclick='() => _tab = Tab.Write'>Write Task</button>
-                <button class="sidebar-link @(_tab == Tab.Calendar ? "active" : "")" @onclick='() => _tab = Tab.Calendar'>Calendar</button>
-                <button class="sidebar-link @(_tab == Tab.Profile ? "active" : "")" @onclick='() => _tab = Tab.Profile'>Profile</button>
+    <div class="flex min-h-screen w-full max-sm:flex-col">
+        <!-- Sidebar -->
+        <aside class="w-54 flex-none bg-[#FFC634] flex flex-col py-6 px-0 max-sm:w-full max-sm:flex-row max-sm:flex-wrap max-sm:items-center max-sm:p-4">
+            <nav class="flex flex-col flex-1 max-sm:flex-row max-sm:flex-wrap">
+                <button class="font-sans text-left bg-transparent border-none py-[0.85rem] px-6 text-[0.95rem] font-semibold text-[#1c1c1c] cursor-pointer hover:bg-white/35 @(_tab == Tab.Today ? "bg-white text-[#1c1c1c]" : "")" 
+                        @onclick='() => _tab = Tab.Today'>Today</button>
+                <button class="font-sans text-left bg-transparent border-none py-[0.85rem] px-6 text-[0.95rem] font-semibold text-[#1c1c1c] cursor-pointer hover:bg-white/35 @(_tab == Tab.Write ? "bg-white text-[#1c1c1c]" : "")" 
+                        @onclick='() => _tab = Tab.Write'>Write Task</button>
+                <button class="font-sans text-left bg-transparent border-none py-[0.85rem] px-6 text-[0.95rem] font-semibold text-[#1c1c1c] cursor-pointer hover:bg-white/35 @(_tab == Tab.Calendar ? "bg-white text-[#1c1c1c]" : "")" 
+                        @onclick='() => _tab = Tab.Calendar'>Calendar</button>
+                <button class="font-sans text-left bg-transparent border-none py-[0.85rem] px-6 text-[0.95rem] font-semibold text-[#1c1c1c] cursor-pointer hover:bg-white/35 @(_tab == Tab.Profile ? "bg-white text-[#1c1c1c]" : "")" 
+                        @onclick='() => _tab = Tab.Profile'>Profile</button>
             </nav>
 
-            <button class="sidebar-logout" @onclick="LogOut">Logout</button>
+            <button class="font-sans bg-transparent border-none text-left py-[0.85rem] px-6 font-semibold text-[#1c1c1c] cursor-pointer hover:underline" 
+                    @onclick="LogOut">Logout</button>
         </aside>
 
-        <main class="dashboard-content">
+        <!-- Main Content Area -->
+        <main class="flex-1 bg-white py-10 px-12 box-border max-sm:p-[1.75rem]">
             @switch (_tab)
             {
                 case Tab.Today:
-                    <h1 class="dashboard-welcome">Welcome</h1>
-                    <h2 class="dashboard-section-title">Tasks Today</h2>
+                    <h1 class="font-serif font-black italic text-[#1c1c1c] text-3xl text-left mb-7">Welcome</h1>
+                    <h2 class="text-base font-semibold text-[#1c1c1c] mb-4">Tasks Today</h2>
 
                     @if (_loading)
                     {
-                        <p><em>Loading tasks...</em></p>
+                        <p class="text-gray-500"><em>Loading tasks...</em></p>
                     }
                     else if (_tasks.Count == 0)
                     {
-                        <p class="empty-state">Nothing here yet - head to "Write Task" to add one.</p>
+                        <p class="text-[#7a7a7a] italic">Nothing here yet - head to "Write Task" to add one.</p>
                     }
                     else
                     {
-                        <table class="task-table">
+                        <table class="w-full border-collapse text-[0.9rem]">
                             <thead>
                                 <tr>
-                                    <th>Task Name</th>
-                                    <th>Due Date</th>
-                                    <th>Status</th>
-                                    <th></th>
+                                    <th class="text-left font-semibold text-[#7a7a7a] pb-[0.6rem] border-b border-[#ececec]">Task Name</th>
+                                    <th class="text-left font-semibold text-[#7a7a7a] pb-[0.6rem] border-b border-[#ececec]">Due Date</th>
+                                    <th class="text-left font-semibold text-[#7a7a7a] pb-[0.6rem] border-b border-[#ececec]">Status</th>
+                                    <th class="border-b border-[#ececec]"></th>
                                 </tr>
                             </thead>
                             <tbody>
                                 @foreach (var task in _tasks)
                                 {
-                                    <tr class="@(task.IsDone ? "done" : "")">
-                                        <td>
-                                            <label class="task-check">
-                                                <input type="checkbox" checked="@task.IsDone" @onchange="() => ToggleDone(task.Id)" />
-                                                <span>@task.Title</span>
+                                    <tr>
+                                        <td class="pt-3 pr-2 pb-3 pl-0 border-b border-[#f2f2f2]">
+                                            <label class="flex items-center gap-[0.6rem] cursor-pointer">
+                                                <input type="checkbox" checked="@task.IsDone" @onchange="() => ToggleDone(task.Id)" class="rounded border-gray-300 text-black focus:ring-0" />
+                                                <span class="@(task.IsDone ? "line-through text-[#7a7a7a]" : "text-[#1c1c1c]")">@task.Title</span>
                                             </label>
                                         </td>
-                                        <td>@(task.DueDate?.ToString("MM/dd/yyyy") ?? "-")</td>
-                                        <td>@(task.IsDone ? "Done" : "Pending")</td>
-                                        <td><button class="task-delete" title="Delete task" @onclick="() => DeleteTask(task.Id)">✕</button></td>
+                                        <td class="pt-3 pr-2 pb-3 pl-0 border-b border-[#f2f2f2] text-[#1c1c1c]">@(task.DueDate?.ToString("MM/dd/yyyy") ?? "-")</td>
+                                        <td class="pt-3 pr-2 pb-3 pl-0 border-b border-[#f2f2f2] text-[#1c1c1c]">@(task.IsDone ? "Done" : "Pending")</td>
+                                        <td class="pt-3 pr-2 pb-3 pl-0 border-b border-[#f2f2f2] text-right">
+                                            <button class="bg-transparent border-none text-[#cfcfcf] cursor-pointer hover:text-[#b3261e]" 
+                                                    title="Delete task" 
+                                                    @onclick="() => DeleteTask(task.Id)">✕</button>
+                                        </td>
                                     </tr>
                                 }
                             </tbody>
@@ -74,41 +81,43 @@ else
                     break;
 
                 case Tab.Write:
-                    <h1 class="dashboard-welcome">Write Task</h1>
-                    <EditForm Model="_newTask" OnValidSubmit="AddTask" class="write-task-form">
+                    <h1 class="font-serif font-black italic text-[#1c1c1c] text-3xl text-left mb-7">Write Task</h1>
+                    <EditForm Model="_newTask" OnValidSubmit="AddTask" class="flex flex-col gap-[0.6rem] max-w-[22rem]">
                         <DataAnnotationsValidator />
-                        <label>Task name</label>
-                        <InputText @bind-Value="_newTask.Title" placeholder="What needs doing?" class="whisker-input" />
-                        <ValidationMessage For="() => _newTask.Title" />
+                        <label class="text-[0.85rem] font-semibold text-[#7a7a7a] mt-[0.4rem]">Task name</label>
+                        <InputText @bind-Value="_newTask.Title" placeholder="What needs doing?" class="font-sans bg-[#fffdf7] border-[1.5px] border-[#1c1c1c] rounded-[0.4rem] py-[0.6rem] px-[0.85rem] text-[0.95rem] italic text-[#1c1c1c] w-full box-border placeholder:text-[#9a9a9a] placeholder:italic" />
+                        <ValidationMessage For="() => _newTask.Title" class="text-[#b3261e] text-[0.85rem]" />
 
-                        <label>Due date</label>
-                        <InputDate @bind-Value="_newTask.DueDate" class="whisker-input" />
+                        <label class="text-[0.85rem] font-semibold text-[#7a7a7a] mt-[0.4rem]">Due date</label>
+                        <InputDate @bind-Value="_newTask.DueDate" class="font-sans bg-[#fffdf7] border-[1.5px] border-[#1c1c1c] rounded-[0.4rem] py-[0.6rem] px-[0.85rem] text-[0.95rem] italic text-[#1c1c1c] w-full box-border" />
 
-                        <button type="submit" class="whisker-button">Add task</button>
+                        <button type="submit" class="font-sans bg-[#111111] text-white border-none rounded-[0.4rem] py-[0.7rem] px-4 font-semibold tracking-wide cursor-pointer mt-4 hover:bg-[#2c2c2c]">Add task</button>
                     </EditForm>
                     break;
 
                 case Tab.Calendar:
-                    <h1 class="dashboard-welcome">Calendar</h1>
+                    <h1 class="font-serif font-black italic text-[#1c1c1c] text-3xl text-left mb-7">Calendar</h1>
                     @if (_tasks.Any(t => t.DueDate is not null))
                     {
-                        <ul class="calendar-list">
+                        <ul class="list-none p-0 m-0">
                             @foreach (var task in _tasks.Where(t => t.DueDate is not null).OrderBy(t => t.DueDate))
                             {
-                                <li><strong>@task.DueDate!.Value.ToString("MMM d")</strong> - @task.Title</li>
+                                <li class="py-2 px-0 border-b border-[#f2f2f2] text-[#1c1c1c]">
+                                    <strong>@task.DueDate!.Value.ToString("MMM d")</strong> - @task.Title
+                                </li>
                             }
                         </ul>
                     }
                     else
                     {
-                        <p class="empty-state">No dated tasks yet.</p>
+                        <p class="text-[#7a7a7a] italic">No dated tasks yet.</p>
                     }
                     break;
 
                 case Tab.Profile:
-                    <h1 class="dashboard-welcome">Profile</h1>
-                    <p>Logged in as <strong>@Auth.CurrentUser</strong></p>
-                    <p>@_tasks.Count(t => !t.IsDone) task(s) still pending.</p>
+                    <h1 class="font-serif font-black italic text-[#1c1c1c] text-3xl text-left mb-7">Profile</h1>
+                    <p class="text-[#1c1c1c] mb-2">Logged in as <strong>@Auth.CurrentUser</strong></p>
+                    <p class="text-[#1c1c1c]">@_tasks.Count(t => !t.IsDone) task(s) still pending.</p>
                     break;
             }
         </main>

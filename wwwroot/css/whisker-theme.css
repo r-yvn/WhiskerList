@@ -1,7 +1,7 @@
 @import "tailwindcss";
 
 @theme {
-  --color-whisker-yellow: #ffc634;
+  --color-whisker-yellow: #FFC634;
   --color-whisker-yellow-dark: #f2b515;
   --color-whisker-black: #111111;
   --color-whisker-paper: #f6f8ff;
@@ -21,44 +21,13 @@
 
 /* ---- Shared full-bleed screen ---- */
 .whisker-screen {
-  @apply min-h-screen w-full bg-whisker-yellow flex items-center justify-center relative box-border px-6 py-10;
+  @apply min-h-screen w-full flex items-center justify-center relative box-border px-6 py-10;
+  background-color: #FFC634;
 }
 
 .not-found-screen {
-  @apply min-h-screen flex flex-col gap-3 items-center justify-center bg-whisker-yellow;
-}
-
-/* ---- Cat mascot ---- */
-.cat-logo {
-  @apply block;
-}
-
-.cat-logo .cat-fill {
-  @apply fill-whisker-black;
-}
-
-.cat-logo .cat-eye-white {
-  @apply fill-white;
-}
-
-.cat-logo .cat-eye-pupil {
-  @apply fill-whisker-black;
-}
-
-.cat-logo .cat-paw-line {
-  @apply fill-none stroke-whisker-black stroke-[6] stroke-round;
-}
-
-.cat-logo .cat-forehead-gap {
-  @apply fill-whisker-yellow;
-}
-
-.cat-logo-large {
-  @apply w-[min(220px,55%)] mx-auto relative z-10;
-}
-
-.cat-logo-small {
-  @apply w-18;
+  @apply min-h-screen flex flex-col gap-3 items-center justify-center;
+  background-color: #FFC634;
 }
 
 /* ---- Splash screen ---- */
@@ -75,37 +44,17 @@
   @apply flex-col;
 }
 
-.login-screen > .cat-logo-small {
-  @apply absolute top-[1.75rem] left-8;
-}
-
 .login-notepad {
   @apply max-w-[20rem];
 }
 
-/* ---- Spiral notepad card ---- */
+/* ---- Simple card container ---- */
 .spiral-notepad-container {
   @apply bg-whisker-paper border-[3px] border-whisker-black rounded-[0.9rem] shadow-[0.5rem_0.5rem_0_rgba(0,0,0,0.18)] w-full max-w-[24rem] overflow-hidden box-border;
 }
 
-.spiral-binding {
-  @apply flex justify-center gap-2 pt-[0.6rem] px-4 pb-0 bg-whisker-paper;
-}
-
-.spiral-loop {
-  @apply relative w-[0.7rem] h-[1.3rem];
-}
-
-.spiral-loop .hole {
-  @apply absolute -top-[0.35rem] left-1/2 -translate-x-1/2 w-[0.45rem] h-[0.45rem] rounded-full bg-whisker-black;
-}
-
-.spiral-loop .wire {
-  @apply absolute -top-[0.15rem] left-1/2 -translate-x-1/2 w-[0.55rem] h-[1.1rem] border-[2.5px] border-whisker-black border-t-0 rounded-b-full;
-}
-
 .notepad-paper {
-  @apply pt-5 px-[1.75rem] pb-8;
+  @apply pt-8 px-[1.75rem] pb-8;
   background-image: repeating-linear-gradient(
     to bottom,
     transparent,
@@ -134,10 +83,6 @@
   @apply text-[1.7rem] tracking-wider flex items-center justify-center gap-[0.6rem] mb-5;
 }
 
-.paw-icon-svg {
-  @apply w-[1.4rem] h-[1.4rem] fill-whisker-yellow-dark flex-none;
-}
-
 /* ---- Splash checklist ---- */
 .splash-checklist {
   @apply list-none p-0 m-0;
@@ -147,13 +92,8 @@
   @apply flex items-center gap-[0.6rem] mb-4;
 }
 
-.checkbox-square,
-.paw-check {
+.checkbox-square {
   @apply flex-none w-[1.1rem] h-[1.1rem] border-[1.5px] border-whisker-ink rounded-[0.15rem] inline-flex items-center justify-center;
-}
-
-.paw-check .paw-icon-svg {
-  @apply w-[0.85rem] h-[0.85rem] fill-whisker-yellow-dark;
 }
 
 .checklist-line {
@@ -195,11 +135,8 @@
 }
 
 .dashboard-sidebar {
-  @apply w-[13.5rem] flex-none bg-whisker-yellow flex flex-col py-6 px-0 max-sm:w-full max-sm:flex-row max-sm:flex-wrap max-sm:items-center max-sm:p-4;
-}
-
-.sidebar-logo {
-  @apply flex justify-center pb-5 border-b-2 border-black/10 my-0 mx-5 mb-4 max-sm:border-b-0 max-sm:mr-2 max-sm:m-0 max-sm:p-0;
+  @apply w-[13.5rem] flex-none flex flex-col py-6 px-0 max-sm:w-full max-sm:flex-row max-sm:flex-wrap max-sm:items-center max-sm:p-4;
+  background-color: #FFC634;
 }
 
 .sidebar-nav {
