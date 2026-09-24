@@ -2065,11 +2065,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\L23Y16W05\\Downloads\\Balogbog_BlazorApp_fixed\\MyBlazorApp\\MyBlazorApp.csproj",
+      "projectUniqueName": "C:\\Users\\L23Y16W05\\WhiskerList\\MyBlazorApp.csproj",
       "projectName": "MyBlazorApp",
-      "projectPath": "C:\\Users\\L23Y16W05\\Downloads\\Balogbog_BlazorApp_fixed\\MyBlazorApp\\MyBlazorApp.csproj",
+      "projectPath": "C:\\Users\\L23Y16W05\\WhiskerList\\MyBlazorApp.csproj",
       "packagesPath": "C:\\Users\\L23Y16W05\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\L23Y16W05\\Downloads\\Balogbog_BlazorApp_fixed\\MyBlazorApp\\obj\\",
+      "outputPath": "C:\\Users\\L23Y16W05\\WhiskerList\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

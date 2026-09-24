@@ -13,51 +13,51 @@ build_property.EnforceExtendedAnalyzerRules =
 build_property._SupportedPlatformList = browser
 build_property.RootNamespace = MyBlazorApp
 build_property.RootNamespace = MyBlazorApp
-build_property.ProjectDir = C:\Users\L23Y16W05\Downloads\Balogbog_BlazorApp_fixed\MyBlazorApp\
+build_property.ProjectDir = C:\Users\L23Y16W05\WhiskerList\
 build_property.EnableComHosting = 
 build_property.EnableGeneratedComInterfaceComImportInterop = false
 build_property.RazorLangVersion = 8.0
 build_property.SupportLocalizedComponentNames = 
 build_property.GenerateRazorMetadataSourceChecksumAttributes = 
-build_property.MSBuildProjectDirectory = C:\Users\L23Y16W05\Downloads\Balogbog_BlazorApp_fixed\MyBlazorApp
+build_property.MSBuildProjectDirectory = C:\Users\L23Y16W05\WhiskerList
 build_property._RazorSourceGeneratorDebug = 
 
-[C:/Users/L23Y16W05/Downloads/Balogbog_BlazorApp_fixed/MyBlazorApp/App.razor]
+[C:/Users/L23Y16W05/WhiskerList/App.razor]
 build_metadata.AdditionalFiles.TargetPath = QXBwLnJhem9y
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/L23Y16W05/Downloads/Balogbog_BlazorApp_fixed/MyBlazorApp/Layout/EmptyLayout.razor]
+[C:/Users/L23Y16W05/WhiskerList/Layout/EmptyLayout.razor]
 build_metadata.AdditionalFiles.TargetPath = TGF5b3V0XEVtcHR5TGF5b3V0LnJhem9y
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/L23Y16W05/Downloads/Balogbog_BlazorApp_fixed/MyBlazorApp/Pages/DashboardScreen.razor]
+[C:/Users/L23Y16W05/WhiskerList/Pages/DashboardScreen.razor]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRGFzaGJvYXJkU2NyZWVuLnJhem9y
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/L23Y16W05/Downloads/Balogbog_BlazorApp_fixed/MyBlazorApp/Pages/LoginScreen.razor]
+[C:/Users/L23Y16W05/WhiskerList/Pages/LoginScreen.razor]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcTG9naW5TY3JlZW4ucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/L23Y16W05/Downloads/Balogbog_BlazorApp_fixed/MyBlazorApp/Pages/RegisterScreen.razor]
+[C:/Users/L23Y16W05/WhiskerList/Pages/RegisterScreen.razor]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUmVnaXN0ZXJTY3JlZW4ucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/L23Y16W05/Downloads/Balogbog_BlazorApp_fixed/MyBlazorApp/Pages/SplashScreen.razor]
+[C:/Users/L23Y16W05/WhiskerList/Pages/SplashScreen.razor]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU3BsYXNoU2NyZWVuLnJhem9y
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/L23Y16W05/Downloads/Balogbog_BlazorApp_fixed/MyBlazorApp/Shared/CatPeeking.razor]
+[C:/Users/L23Y16W05/WhiskerList/Shared/CatPeeking.razor]
 build_metadata.AdditionalFiles.TargetPath = U2hhcmVkXENhdFBlZWtpbmcucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/L23Y16W05/Downloads/Balogbog_BlazorApp_fixed/MyBlazorApp/Shared/PawIcon.razor]
+[C:/Users/L23Y16W05/WhiskerList/Shared/PawIcon.razor]
 build_metadata.AdditionalFiles.TargetPath = U2hhcmVkXFBhd0ljb24ucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/L23Y16W05/Downloads/Balogbog_BlazorApp_fixed/MyBlazorApp/Shared/SpiralNotepad.razor]
+[C:/Users/L23Y16W05/WhiskerList/Shared/SpiralNotepad.razor]
 build_metadata.AdditionalFiles.TargetPath = U2hhcmVkXFNwaXJhbE5vdGVwYWQucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/L23Y16W05/Downloads/Balogbog_BlazorApp_fixed/MyBlazorApp/_Imports.razor]
+[C:/Users/L23Y16W05/WhiskerList/_Imports.razor]
 build_metadata.AdditionalFiles.TargetPath = X0ltcG9ydHMucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
